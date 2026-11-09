@@ -3,10 +3,10 @@
  * Curated Catalog & Product Data
  */
 
-import featuredBookCover from '../src/assets/images/featured_book_cover_1794197220576.jpg';
-import curatedBookImage from '../src/assets/images/curated_book_flatlay_1794197237013.jpg';
-import heroReadingImage from '../src/assets/images/hero_reading_world_1794197221546.jpg';
-import storeInteriorImage from '../src/assets/images/about_store_interior_1794197236655.jpg';
+const featuredBookCover = new URL('../src/assets/images/featured_book_cover_1794197220576.jpg', import.meta.url).href;
+const curatedBookImage = new URL('../src/assets/images/curated_book_flatlay_1794197237013.jpg', import.meta.url).href;
+const heroReadingImage = new URL('../src/assets/images/hero_reading_world_1794197221546.jpg', import.meta.url).href;
+const storeInteriorImage = new URL('../src/assets/images/about_store_interior_1794197236655.jpg', import.meta.url).href;
 
 export const CATEGORIES = [
   { id: 'all', name: 'All Editions', count: 18, description: 'The complete curated collection' },
