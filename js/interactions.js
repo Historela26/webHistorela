@@ -42,6 +42,7 @@ export function initInteractions() {
   setupCartDrawer();
   setupSearch();
   setupForms();
+  initAboutInteractiveBook();
   renderTrendingBooks();
   renderCategoryCards();
   renderCatalogBooks();
@@ -746,4 +747,33 @@ function setupForms() {
     showToast('Your message has been sent to our literary concierge.');
     e.target.reset();
   });
+}
+
+/* ==========================================================================
+   HISTORELA - LIBRO INTERACTIVO SOBRE NOSOTROS
+   ========================================================================== */
+function initAboutInteractiveBook(){
+  const book=document.getElementById('about-interactive-book');
+  if(!book||book.dataset.bookInitialized==='true')return;
+  book.dataset.bookInitialized='true';
+  const chapters=[...book.querySelectorAll('.about-book__chapter-button')];
+  const panels=[...book.querySelectorAll('.about-book__panel')];
+  const prev=document.getElementById('about-book-previous');
+  const next=document.getElementById('about-book-next');
+  const indexBtn=document.getElementById('about-book-index-button');
+  const current=document.getElementById('about-book-current');
+  const folio=document.getElementById('about-book-folio');
+  const sheet=document.getElementById('about-book-turning-sheet');
+  const trigger=document.getElementById('about-book-drawer-trigger');
+  const drawer=document.getElementById('about-book-drawer');
+  const close=document.getElementById('about-book-drawer-close');
+  const backdrop=document.getElementById('about-book-drawer-backdrop');
+  const order=['history','mission','purpose','values','next'];
+  let index=0,animating=false;
+  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+  const openDrawer=()=>{book.classList.add('drawer-open');drawer?.setAttribute('aria-hidden','false');trigger?.setAttribute('aria-expanded','true');setTimeout(()=>chapters.find(b=>b.classList.contains('is-active'))?.focus(),180)};
+  const closeDrawer=()=>{trigger?.focus();book.classList.remove('drawer-open');drawer?.setAttribute('aria-hidden','true');trigger?.setAttribute('aria-expanded','false')};
+  function activate(name){panels.forEach(p=>{const active=p.dataset.bookPanel===name;p.classList.toggle('is-active',active);p.hidden=!active;p.setAttribute('aria-hidden',String(!active));if(active)p.scrollTop=0});chapters.forEach(b=>b.classList.toggle('is-active',b.dataset.bookPage===name));index=order.indexOf(name);book.dataset.activePage=name;const n=String(index+1).padStart(2,'0');if(current)current.textContent=n;if(folio)folio.textContent=n;if(prev)prev.disabled=index===0;if(next)next.disabled=index===order.length-1}
+  function change(name){const target=order.indexOf(name);if(target<0||target===index||animating){closeDrawer();return}closeDrawer();if(reduced.matches||window.innerWidth<=768){activate(name);return}animating=true;const cls=target>index?'is-turning-forward':'is-turning-backward';book.classList.remove('is-turning-forward','is-turning-backward');if(sheet)void sheet.offsetWidth;book.classList.add(cls);setTimeout(()=>activate(name),285);setTimeout(()=>{book.classList.remove(cls);animating=false},650)}
+  trigger?.addEventListener('click',()=>book.classList.contains('drawer-open')?closeDrawer():openDrawer());close?.addEventListener('click',closeDrawer);backdrop?.addEventListener('click',closeDrawer);indexBtn?.addEventListener('click',openDrawer);chapters.forEach(b=>b.addEventListener('click',()=>change(b.dataset.bookPage)));prev?.addEventListener('click',()=>{if(index>0)change(order[index-1])});next?.addEventListener('click',()=>{if(index<order.length-1)change(order[index+1])});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&book.classList.contains('drawer-open')){closeDrawer();trigger?.focus()}});activate(order[0]);
 }
