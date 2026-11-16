@@ -42,7 +42,7 @@
         </a>
 
         <!-- Main Navigation Links -->
-        <nav aria-label="Main Navigation">
+        <nav id="primary-navigation" aria-label="Navegación principal">
           <ul class="nav-links">
             <li><a href="#home" class="nav-link active">Inicio</a></li>
             <li><a href="#catalog" class="nav-link">Catálogo</a></li>
@@ -74,7 +74,7 @@
           </button>
 
           <!-- Mobile Hamburger -->
-          <button class="mobile-toggle" aria-label="Toggle navigation menu">
+          <button class="mobile-toggle" type="button" aria-label="Abrir menú de navegación" aria-controls="primary-navigation" aria-expanded="false">
             <span></span>
             <span></span>
             <span></span>
@@ -466,9 +466,9 @@
             </div>
           </div>
 
-          <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items: start;">
+          <div class="contact-layout" style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items: start;">
             <!-- Contact Details -->
-            <div style="background-color: var(--color-bone-surface); border: 1px solid var(--border-subtle); padding: 2.5rem; border-radius: 4px;">
+            <div class="contact-info-card" style="background-color: var(--color-bone-surface); border: 1px solid var(--border-subtle); padding: 2.5rem; border-radius: 4px;">
               <h4 style="font-family: var(--font-h1); font-size: 1.5rem; color: var(--color-navy); margin-bottom: 1.25rem;">Flagship Sanctuary</h4>
               
               <div style="display: flex; flex-direction: column; gap: 1.25rem; font-size: 0.9rem;">
@@ -488,8 +488,8 @@
             </div>
 
             <!-- Inquiries Form -->
-            <form id="contact-form" style="display: flex; flex-direction: column; gap: 1.25rem;">
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <form id="contact-form" class="contact-form" style="display: flex; flex-direction: column; gap: 1.25rem;">
+              <div class="contact-form-fields" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                 <div>
                   <label style="display: block; font-family: var(--font-ui); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-turquoise); margin-bottom: 0.4rem; font-weight: 600;">Your Name</label>
                   <input type="text" required placeholder="Elena Rostova" style="width: 100%; padding: 0.85rem 1rem; border: 1px solid var(--border-subtle); background: #FFFFFF; border-radius: 2px; font-family: var(--font-ui); font-size: 0.9rem; outline: none;" />
